@@ -23,11 +23,19 @@ public:
 
 	void LookAtEnd_Implementation();
 
+	void InteractWith_Implementation();
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	class UWidgetComponent* WidgetComponent = nullptr;
 
+	UPROPERTY(EditDefaultsOnly)
+	FName MaterialColorName = "Base Color";
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	UPROPERTY(EditDefaultsOnly)
+	FLinearColor Color = FLinearColor::Red;
 };

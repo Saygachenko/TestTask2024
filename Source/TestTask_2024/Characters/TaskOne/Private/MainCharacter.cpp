@@ -5,6 +5,8 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "TestTask_2024/Interfaces/TaskOne/Public/InteractInterface.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
 // Sets default values
 AMainCharacter::AMainCharacter()
@@ -34,6 +36,10 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* Input = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		Input->BindAction(InteractInputAction, ETriggerEvent::Started, this, &AMainCharacter::Interact);
+	}
 }
 
 void AMainCharacter::InteractionTrace()
@@ -84,6 +90,17 @@ void AMainCharacter::InteractionTrace()
 
 				LookAtActor = nullptr;
 			}
+		}
+	}
+}
+
+void AMainCharacter::Interact()
+{
+	if (LookAtActor)
+	{
+		if (LookAtActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass()))
+		{
+			IInteractInterface::Execute_InteractWith(LookAtActor);
 		}
 	}
 }

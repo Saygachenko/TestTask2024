@@ -46,3 +46,16 @@ void ATaskOneActor::LookAtEnd_Implementation()
 		WidgetComponent->SetHiddenInGame(true);
 	}
 }
+
+void ATaskOneActor::InteractWith_Implementation()
+{
+	UStaticMeshComponent* StaticMeshComponent = FindComponentByClass<UStaticMeshComponent>();
+	if (StaticMeshComponent)
+	{
+		UMaterialInstanceDynamic* MaterialInstance = StaticMeshComponent->CreateAndSetMaterialInstanceDynamic(0);
+		if (MaterialInstance)
+		{
+			MaterialInstance->SetVectorParameterValue(MaterialColorName, Color);
+		}
+	}
+}

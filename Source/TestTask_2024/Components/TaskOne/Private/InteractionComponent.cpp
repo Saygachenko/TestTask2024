@@ -22,9 +22,7 @@ void UInteractionComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Owner = GetOwner();
-	OwnerCharacter = Cast<AMainCharacter>(Owner);
-	OwnerController = OwnerCharacter->GetController();
+	OwnerCharacter = Cast<AMainCharacter>(GetOwner());
 }
 
 // Called every frame
@@ -40,10 +38,12 @@ void UInteractionComponent::InteractionTrace()
 	UWorld* World = GetWorld();
 	if (World)
 	{
+		AActor* Owner = GetOwner();
 		if (Owner)
 		{
 			if (OwnerCharacter)
 			{
+				AController* OwnerController = OwnerCharacter->GetController();
 				if (OwnerController)
 				{
 					FVector ViewLocation;

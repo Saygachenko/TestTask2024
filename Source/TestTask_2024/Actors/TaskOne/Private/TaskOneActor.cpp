@@ -31,12 +31,6 @@ void ATaskOneActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (MarkerWidgetComponent)
-	{
-		World = GetWorld();
-		MainCharacter = UGameplayStatics::GetPlayerCharacter(World, 0);
-		MarkerWidget = MarkerWidgetComponent->GetUserWidgetObject();
-	}
 }
 
 // Called every frame
@@ -77,26 +71,38 @@ void ATaskOneActor::InteractWith_Implementation()
 
 void ATaskOneActor::DistanceCalculation()
 {
-	if (World && MarkerWidgetComponent && MarkerWidget && MainCharacter)
+	UWorld* World = GetWorld();
+	if (World)
 	{
-		if (MarkerWidget->GetClass()->ImplementsInterface(UMarkerInterface::StaticClass()))
+		if (MarkerWidgetComponent)
 		{
-			FVector ActorLocation = GetActorLocation();
-			FVector CharacterLocation = MainCharacter->GetActorLocation();
-			float Distance = FVector::Dist(ActorLocation, CharacterLocation) / 100.0f;
-			auto TruncInt = FMath::TruncToInt(Distance);
-			if (TruncInt > 1)
+			UUserWidget* MarkerWidget = MarkerWidgetComponent->GetUserWidgetObject();
+			if (MarkerWidget)
 			{
-				MarkerWidgetComponent->SetHiddenInGame(false);
+				ACharacter* MainCharacter = UGameplayStatics::GetPlayerCharacter(World, 0);
+				if (MainCharacter)
+				{
+					if (MarkerWidget->GetClass()->ImplementsInterface(UMarkerInterface::StaticClass()))
+					{
+						FVector ActorLocation = GetActorLocation();
+						FVector CharacterLocation = MainCharacter->GetActorLocation();
+						float Distance = FVector::Dist(ActorLocation, CharacterLocation) / 100.0f;
+						auto TruncInt = FMath::TruncToInt(Distance);
+						if (TruncInt > 1)
+						{
+							MarkerWidgetComponent->SetHiddenInGame(false);
 
-				FString DistanceString = FString::Printf(TEXT("%i m"), TruncInt);
-				FText DistanceText = FText::FromString(DistanceString);
+							FString DistanceString = FString::Printf(TEXT("%i m"), TruncInt);
+							FText DistanceText = FText::FromString(DistanceString);
 
-				IMarkerInterface::Execute_UpdateDistance(MarkerWidget, DistanceText);
-			}
-			else
-			{
-				MarkerWidgetComponent->SetHiddenInGame(true);
+							IMarkerInterface::Execute_UpdateDistance(MarkerWidget, DistanceText);
+						}
+						else
+						{
+							MarkerWidgetComponent->SetHiddenInGame(true);
+						}
+					}
+				}
 			}
 		}
 	}

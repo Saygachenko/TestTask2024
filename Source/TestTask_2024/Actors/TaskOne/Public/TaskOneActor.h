@@ -47,14 +47,5 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	FLinearColor Color = FLinearColor::Red;
 
-	UPROPERTY()
-	UWorld* World = nullptr;
-
-	UPROPERTY()
-	ACharacter* MainCharacter = nullptr;
-
-	UPROPERTY()
-	UUserWidget* MarkerWidget = nullptr;
-
 	void DistanceCalculation();
 };

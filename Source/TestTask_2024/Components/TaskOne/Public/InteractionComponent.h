@@ -34,13 +34,7 @@ private:
 	AActor* LookAtActor = nullptr;
 
 	UPROPERTY()
-	AActor* Owner;
-
-	UPROPERTY()
 	class AMainCharacter* OwnerCharacter;
-
-	UPROPERTY()
-	class AController* OwnerController;
 
 	UFUNCTION(BlueprintCallable)
 	void InteractionTrace();

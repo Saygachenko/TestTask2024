@@ -7,6 +7,8 @@
 #include "TestTask_2024/Interfaces/TaskOne/Public/InteractInterface.h"
 #include "TaskOneActor.generated.h"
 
+class UWidgetComponent;
+
 UCLASS()
 class TESTTASK_2024_API ATaskOneActor : public AActor, public IInteractInterface
 {
@@ -27,7 +29,13 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	class UWidgetComponent* WidgetComponent = nullptr;
+	UStaticMeshComponent* StaticMeshComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	UWidgetComponent* WidgetComponent = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	UWidgetComponent* MarkerWidgetComponent = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
 	FName MaterialColorName = "Base Color";
@@ -38,4 +46,15 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly)
 	FLinearColor Color = FLinearColor::Red;
+
+	UPROPERTY()
+	UWorld* World = nullptr;
+
+	UPROPERTY()
+	ACharacter* MainCharacter = nullptr;
+
+	UPROPERTY()
+	UUserWidget* MarkerWidget = nullptr;
+
+	void DistanceCalculation();
 };

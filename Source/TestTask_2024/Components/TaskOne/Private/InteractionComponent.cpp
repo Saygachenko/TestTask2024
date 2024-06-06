@@ -1,7 +1,7 @@
 // RedRuins Softworks (c)
 
 
-#include "InteractionComponent.h"
+#include "TestTask_2024/Components/TaskOne/Public/InteractionComponent.h"
 
 #include "TestTask_2024/Interfaces/TaskOne/Public/InteractInterface.h"
 #include "TestTask_2024/Characters/TaskOne/Public/MainCharacter.h"
@@ -22,18 +22,9 @@ void UInteractionComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (!Owner)
-	{
-		if (!OwnerCharacter)
-		{
-			if (!OwnerController)
-			{
-				Owner = GetOwner();
-				OwnerCharacter = Cast<AMainCharacter>(Owner);
-				OwnerController = OwnerCharacter->GetController();
-			}
-		}
-	}
+	Owner = GetOwner();
+	OwnerCharacter = Cast<AMainCharacter>(Owner);
+	OwnerController = OwnerCharacter->GetController();
 }
 
 // Called every frame

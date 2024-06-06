@@ -24,7 +24,7 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float InteractDistance = 1.5f;
+	float InteractDistance = 1.4f;
 
 	// Called when the game starts
 	virtual void BeginPlay() override;

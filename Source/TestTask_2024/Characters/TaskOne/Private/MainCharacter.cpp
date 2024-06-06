@@ -6,7 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "InteractionComponent.h"
+#include "TestTask_2024/Components/TaskOne/Public/InteractionComponent.h"
 
 // Sets default values
 AMainCharacter::AMainCharacter()

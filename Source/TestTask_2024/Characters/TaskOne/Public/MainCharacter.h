@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "MainCharacter.generated.h"
 
-class UUserWidget;
 class UInputAction;
 
 UCLASS()
@@ -25,8 +24,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float InteractDistance = 1.5f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	class UInteractionComponent* InteractionComponent = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Inputs")
 	UInputAction* InteractInputAction = nullptr;
@@ -34,12 +33,4 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:
-	UPROPERTY()
-	AActor* LookAtActor = nullptr;
-
-	UFUNCTION(BlueprintCallable)
-	void InteractionTrace();
-
-	void Interact();
 };
